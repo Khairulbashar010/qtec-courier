@@ -6,7 +6,7 @@ cd to qtec-courier and run `pip3 install -r requirements.txt` in linux or `pip i
 
 # Database Setup
 Look for `DATABASES` in the `settings.py` file and create a database acordingly.<br/>
-If you want to use postgreSQL then set the firstline of `DATABASES` to `'ENGINE': 'django.db.backends.postgresql',` and the last to `'PORT': '5432',` ( Change port to your machine's port)<br/>
+If you want to use postgreSQL then set the firstline of `DATABASES` to `'ENGINE': 'django.db.backends.postgresql',` and the last to `'PORT': '5432',` ( Change port to your machine's postgreSQL port)<br/>
 Run the following commands to create database files (For Linux): 
 `python3 manage.py makemigrations`<br/>
 `python3 manage.py migrate`<br/>
