@@ -1,0 +1,201 @@
+<!-- Main Sidebar Container -->
+
+{% extends "app.html" %} {% block content %} {%load static %} {% block header %}
+<script type="text/javascript" src="{% static 'dist/js/pages/courier.js' %}"></script>
+{% endblock header %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0 text-dark">Courier</h1>
+				</div>
+				<!-- /.col -->
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item">
+							<a href="/dashboard">Home</a>
+						</li>
+						<li class="breadcrumb-item active">Courier</li>
+					</ol>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+	<!-- /.content-header -->
+	<!-- Main content -->
+	<div class="row align-items-center">
+		<div class="col-lg-7 col-md-7 col-sm-12 col-offset-2 container-fluid">
+			<form role="form" method="post" action="/create_order" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="card-body">
+					<div class="form-group">
+						<label>Merchant</label>
+						<select name="merchant" class="form-control select2 select2-hidden-accessible"
+							aria-hidden="true" required>
+							<option disabled selected value>
+								-- Select Merchant --
+							</option>
+							{% for user in all_user_data%}
+							<option value="{{user.id}}">{{user.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="radio col-md-4 col-sm-4 col-4">
+								<label>
+									<input type="radio" name="product_type" value="Fragile" checked="" />
+									Fragile
+								</label>
+							</div>
+							<div class="col-md-4 col-sm-4 col-4"></div>
+							<div class="radio col-md-4 col-sm-4 col-4">
+								<label>
+									<input type="radio" name="product_type" value="Liquid" />
+									Liquid
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Merchant Invoice Id</label>
+						<input type="text" value="{{selected_data.name}}" class="form-control"
+							placeholder="Enter Invoice ID" name="invoice_id" required />
+					</div>
+					<div class="form-group">
+						<label>Send To</label>
+						<select name="location" id="location" onchange="calculate()" class="form-control" required>
+							<option disabled selected value>
+								-- Select Location --
+							</option>
+							<option value="gazipur">Gazipur</option>
+							<option value="noakhali">Noakhali</option>
+							<option value="dhanmondi">Dhanmondi</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Weight</label>
+						<select name="weight" id="weight" onchange="calculate()" class="form-control" required>
+							<option disabled selected value>
+								-- Select Weight --
+							</option>
+							<option value="1">500 gm - 2 kg</option>
+							<option value="2">3 kg</option>
+							<option value="3">4 kg</option>
+							<option value="4">5 kg</option>
+						</select>
+					</div>
+					<input type="hidden" value="" id="total" name="total" required />
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer" style="background-color: transparent">
+					<button type="submit" class="btn btn-primary" value="Submit">
+						Submit
+					</button>
+				</div>
+			</form>
+		</div>
+		<div class="table-responsive col-lg-4 col-md-4 col-sm-12 col-offset-2 container-fluid">
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Subtotal:</th>
+						<td id="subtotal">0 TK</td>
+					</tr>
+					<tr>
+						<th>COD Charge</th>
+						<td id="cod_charge">0 TK</td>
+					</tr>
+					<tr>
+						<th>Return Charge:</th>
+						<td id="return_charge">0 TK</td>
+					</tr>
+					<tr>
+						<th>Total:</th>
+						<td id="view_total">0 TK</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 card-body">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-bordered table-hover dataTable">
+					<thead>
+						<tr role="row">
+							<th>Merchant</th>
+							<th>Product Type</th>
+							<th>Invoice ID</th>
+							<th>Location</th>
+							<th>Weight</th>
+							<th>Total</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for data in all_order_data %}
+						<tr>
+							<td>{{ data.merchant.name }}</td>
+							<td>{{ data.product_type }}</td>
+							<td>{{ data.invoice_id }}</td>
+							<td>{{ data.location }}</td>
+							<td>
+								{% if data.weight == 1 %} 500 gm to 2 kg {% elif
+								data.weight == 2%} 3 kg {% elif data.weight ==
+								3%} 4 kg {% else%} 5 kg {% endif %}
+							</td>
+							<td>{{ data.total }}</td>
+							<td>
+								<button type="button" class="btn btn-danger" data-toggle="modal"
+									data-target="#delete{{data.id}}">
+									<i class="fa fa-trash-alt text-white"></i>
+								</button>
+								<div class="modal fade" id="delete{{data.id}}" tabindex="-1" role="dialog"
+									aria-labelledby="myModellabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content bg-danger">
+											<div class="modal-header">
+												<h4 class="modal-title">
+													Are you sure you want to
+													delete this?
+												</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">×</span>
+												</button>
+											</div>
+
+											<div class="modal-footer justify-content-between">
+												<button type="button" class="btn btn-outline-light"
+													data-dismiss="modal">
+													Cancel
+												</button>
+												<a class="btn btn-danger" href="/delete_order/{{ data.id }}"><button
+														type="button" class="btn btn-outline-light">
+														Delete
+													</button></a>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

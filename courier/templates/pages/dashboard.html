@@ -1,0 +1,222 @@
+<!-- Main Sidebar Container -->
+
+{% extends "app.html" %} {% block content %} {%load static %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0 text-dark">Dashboard</h1>
+				</div>
+				<!-- /.col -->
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item">
+							<a href="/dashboard">Home</a>
+						</li>
+						<li class="breadcrumb-item active">Dashboard</li>
+					</ol>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+	<!-- /.content-header -->
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<!-- Small boxes (Stat box) -->
+			<div class="row">
+				<div class="col-lg-6">
+					<!-- small box -->
+					<div class="small-box bg-primary">
+						<div class="inner">
+							<h1>{% if user.is_superuser %}
+								There are
+								{% else %}
+								You have
+								{% endif %}
+								{{total_order_number}}
+							</h1>
+							<h4>Orders</h4>
+						</div>
+						<div class="icon">
+							<i class="ion ion-bag"></i>
+						</div>
+					</div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-6">
+					<!-- small box -->
+					<div class="small-box bg-yellow">
+						<div class="inner">
+							<h1>Total {{total_user_number}}</h1>
+
+							<h4>Merchants</h4>
+						</div>
+						<div class="icon">
+							<i class="ion ion-person"></i>
+						</div>
+					</div>
+				</div>
+				<!-- ./col -->
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<!-- small box -->
+					<div class="small-box bg-green">
+						<div class="inner">
+							<h1>Collect from <strong>3</strong></h1>
+
+							<h4>Locations</h4>
+						</div>
+						<div class="icon">
+							<i class="ion ion-location"></i>
+						</div>
+					</div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-6">
+					<!-- small box -->
+					<div class="small-box bg-red">
+						<div class="inner">
+							<h1>Faster Than</h1>
+
+							<p>Others</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-clock"></i>
+						</div>
+					</div>
+				</div>
+				<!-- ./col -->
+			</div>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+				<strong>View Pricing</strong>
+			</button>
+			<div class="modal fade" id="modal-default" style="display: none;">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span></button>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<p>Inside Dhaka City</p>
+								<div class="row align-items-center">
+									<div class="col-3">
+										<strong>Weight</strong>
+										<p>500 gm - 2 kg</p>
+										<p>3 kg</p>
+										<p>4 kg</p>
+										<p>5 kg</p>
+									</div>
+									<div class="col-3">
+									<strong>Price</strong>
+										<p>60 TK</p>
+										<p>70 TK</p>
+										<p>80 TK</p>
+										<p>90 TK</p>
+									</div>
+									<div class="col-3">
+									<strong>COD Charge</strong>
+										<p>0 %</p>
+										<p>0 %</p>
+										<p>0 %</p>
+										<p>0 %</p>
+									</div>
+									<div class="col-3">
+									<strong>Return Charge</strong>
+										<p>0 %</p>
+										<p>0 %</p>
+										<p>0 %</p>
+										<p>0 %</p>
+									</div>
+								</div>
+								<hr>
+								<p>Inside Dhaka Division</p>
+								<div class="row align-items-center">
+									<div class="col-3">
+										<strong>Weight</strong>
+										<p>500 gm - 2 kg</p>
+										<p>3 kg</p>
+										<p>4 kg</p>
+										<p>5 kg</p>
+									</div>
+									<div class="col-3">
+									<strong>Price</strong>
+										<p>110 TK</p>
+										<p>130 TK</p>
+										<p>150 TK</p>
+										<p>170 TK</p>
+									</div>
+									<div class="col-3">
+									<strong>COD Charge</strong>
+										<p>1 %</p>
+										<p>1 %</p>
+										<p>1 %</p>
+										<p>1 %</p>
+									</div>
+									<div class="col-3">
+									<strong>Return Charge</strong>
+										<p>50 %</p>
+										<p>50 %</p>
+										<p>50 %</p>
+										<p>50 %</p>
+									</div>
+								</div>
+								<hr>
+								<p>Outside of Dhaka</p>
+								<div class="row align-items-center">
+									<div class="col-3">
+										<strong>Weight</strong>
+										<p>500 gm - 2 kg</p>
+										<p>3 kg</p>
+										<p>4 kg</p>
+										<p>5 kg</p>
+									</div>
+									<div class="col-3">
+									<strong>Price</strong>
+										<p>130 TK</p>
+										<p>150 TK</p>
+										<p>170 TK</p>
+										<p>190 TK</p>
+									</div>
+									<div class="col-3">
+									<strong>COD Charge</strong>
+										<p>1 %</p>
+										<p>1 %</p>
+										<p>1 %</p>
+										<p>1 %</p>
+									</div>
+									<div class="col-3">
+									<strong>Return Charge</strong>
+										<p>50 %</p>
+										<p>50 %</p>
+										<p>50 %</p>
+										<p>50 %</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}
