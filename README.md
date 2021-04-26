@@ -1,7 +1,7 @@
 # Project Setup
 
 I hope you have virtualenv and MySQL installed in your machine. Activate a virtual environment or create a new to run this project.<br/>
-After starting you virtual environment clone the repo to your desired location.<br/>
+After starting your virtual environment clone the repo to your desired location.<br/>
 cd to qtec-courier and run `pip3 install -r requirements.txt` in linux or `pip install -r requirements.txt` in windows.<br/>
 
 # Database Setup
